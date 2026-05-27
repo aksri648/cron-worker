@@ -6,6 +6,12 @@ const URLS = [
 ];
 
 export default {
+  async fetch(request, env, ctx) {
+    return new Response('Cron worker is running. Scheduled task pings every 10 minutes.', {
+      headers: { 'Content-Type': 'text/plain' },
+    });
+  },
+
   async scheduled(event, env, ctx) {
     const results = await Promise.allSettled(
       URLS.map(url => fetch(url).then(r => r.status))
